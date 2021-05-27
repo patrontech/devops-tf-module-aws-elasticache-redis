@@ -157,18 +157,6 @@ variable "availability_zones" {
   default     = []
 }
 
-variable "zone_id" {
-  type        = string
-  default     = ""
-  description = "Route53 DNS Zone ID"
-}
-
-variable "dns_subdomain" {
-  type        = string
-  default     = ""
-  description = "The subdomain to use for the CNAME record. If not provided then the CNAME record will use var.name."
-}
-
 variable "auth_token" {
   type        = string
   description = "Auth token for password protecting redis, `transit_encryption_enabled` must be set to `true`. Password must be longer than 16 chars"
