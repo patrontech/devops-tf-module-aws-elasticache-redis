@@ -1,4 +1,26 @@
-variable "use_existing_security_groups" {
+variable "create_cluster" {
+  description = "Whether cluster should be created (it affects almost all resources)"
+  type        = bool
+  default     = true
+}
+
+variable "name" {
+  description = "Name used across resources created"
+  type        = string
+}
+
+variable "subnets" {
+  type        = list(string)
+  description = "Subnet IDs"
+  default     = []
+}
+
+variable "elasticache_subnet_group_name" {
+  type = string
+  description = "Name of the Elasticache subnet group"
+}
+
+variable "create_security_group" {
   type        = bool
   description = "Flag to enable/disable creation of Security Group in the module. Set to `true` to disable Security Group creation and provide a list of existing security Group IDs in `existing_security_groups` to place the cluster into"
   default     = false
@@ -33,13 +55,13 @@ variable "vpc_id" {
   description = "VPC ID"
 }
 
-variable "subnets" {
-  type        = list(string)
-  description = "Subnet IDs"
-  default     = []
+variable "instance_type" {
+  type        = string
+  default     = "cache.t2.micro"
+  description = "Elastic cache instance type"
 }
 
-variable "elasticache_subnet_group_name" {
+variable "cache_subnet_group_name" {
   type        = string
   description = "Subnet group name for the ElastiCache instance"
   default     = ""
@@ -63,11 +85,7 @@ variable "port" {
   description = "Redis port"
 }
 
-variable "instance_type" {
-  type        = string
-  default     = "cache.t2.micro"
-  description = "Elastic cache instance type"
-}
+
 
 variable "family" {
   type        = string
@@ -222,6 +240,18 @@ variable "cloudwatch_metric_alarms_enabled" {
   type        = bool
   description = "Boolean flag to enable/disable CloudWatch metrics alarms"
   default     = false
+}
+
+variable "tags" {
+  description = "A map of tags to add to all resources."
+  type        = map(string)
+  default     = {}
+}
+
+variable "security_group_tags" {
+  description = "Additional tags for the security group"
+  type        = map(string)
+  default     = {}
 }
 
 variable egress_cidr_blocks {

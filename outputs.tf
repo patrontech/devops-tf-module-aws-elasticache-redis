@@ -4,7 +4,7 @@ output "id" {
 }
 
 output "security_group_id" {
-  value       = join("", aws_security_group.default.*.id)
+  value       = join("", aws_security_group.this.*.id)
   description = "Security group ID"
 }
 
@@ -21,9 +21,4 @@ output "endpoint" {
 output "member_clusters" {
   value       = aws_elasticache_replication_group.default.*.member_clusters
   description = "Redis cluster members"
-}
-
-output "host" {
-  value       = module.dns.hostname
-  description = "Redis hostname"
 }
